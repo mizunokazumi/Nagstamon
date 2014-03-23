@@ -1,3 +1,10 @@
+nagstamon (0.9.12-1.mizu) unstable; urgency=low
+
+  * New upstream
+    - added Nagios Websocket support
+
+ -- Vorontsov Igor <mizunokazumi@mail.ru>  Sun, 23 Mar 2014 09:00:00 +0400
+
 nagstamon (0.9.11) unstable; urgency=low
 
   * New upstream

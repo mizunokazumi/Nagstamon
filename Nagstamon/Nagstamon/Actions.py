@@ -104,7 +104,11 @@ class RefreshLoopOneServer(threading.Thread):
 
         while self.stopped == False:
             # check if we have to leave update interval sleep
-            if self.server.count > int(self.conf.update_interval_seconds): self.doRefresh = True
+            if getattr(self.server, 'websocket_url') and not self.doRefresh:
+                if self.server.websocket_wait():
+                    self.doRefresh = True
+            elif self.server.count > int(self.conf.update_interval_seconds):
+                self.doRefresh = True
 
             # self.doRefresh could also been changed by RefreshAllServers()
             if self.doRefresh == True:
@@ -760,6 +764,7 @@ def CreateServer(server=None, conf=None, debug_queue=None, resources=None):
     nagiosserver.type = server.type
     nagiosserver.monitor_url = server.monitor_url
     nagiosserver.monitor_cgi_url = server.monitor_cgi_url
+    nagiosserver.websocket_url = server.websocket_url
     # add resources, needed for auth dialog
     nagiosserver.Resources = resources
     nagiosserver.username = server.username

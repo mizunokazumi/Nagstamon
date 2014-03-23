@@ -764,6 +764,7 @@ class Server(object):
         self.name = ""
         self.monitor_url = ""
         self.monitor_cgi_url = ""
+        self.websocket_url = ""
         self.username = ""
         self.password = ""
         self.save_password = True

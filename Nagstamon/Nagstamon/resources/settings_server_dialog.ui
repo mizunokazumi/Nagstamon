@@ -461,6 +461,38 @@ Don&amp;apos;t put any status.cgi in there.</property>
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="label_monitor_websocket_url">
+                <property name="visible">False</property>
+                <property name="can_focus">False</property>
+                <property name="has_tooltip">True</property>
+                <property name="tooltip_markup">URL of Nagios Websocket.</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Monitor Websocket URL:</property>
+              </object>
+              <packing>
+                <property name="top_attach">15</property>
+                <property name="bottom_attach">16</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="input_entry_websocket_url">
+                <property name="visible">False</property>
+                <property name="can_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="text" translatable="yes">ws://monitor-server:8000</property>
+                <property name="primary_icon_activatable">False</property>
+                <property name="secondary_icon_activatable">False</property>
+                <property name="primary_icon_sensitive">True</property>
+                <property name="secondary_icon_sensitive">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">15</property>
+                <property name="bottom_attach">16</property>
+              </packing>
+            </child>
+            <child>
               <placeholder/>
             </child>
           </object>

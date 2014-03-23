@@ -3936,6 +3936,7 @@ class GenericServer(object):
         # default monitor server addresses
         self.builder.get_object("input_entry_monitor_url").set_text("https://monitor-server")
         self.builder.get_object("input_entry_monitor_cgi_url").set_text("https://monitor-server/monitor/cgi-bin")
+        self.builder.get_object("input_entry_websocket_url").set_text("ws://monitor-server:8000")
         # default user and password
         self.builder.get_object("input_entry_username").set_text("user")
         self.builder.get_object("input_entry_password").set_text("password")
@@ -3971,12 +3972,23 @@ class GenericServer(object):
             if item is not None:
                 item.set_visible(True)
 
+        # make something invisible
+        for item_id in ["label_monitor_websocket_url", "input_entry_websocket_url"]:
+            item = self.builder.get_object(item_id)
+            if item is not None:
+                item.set_visible(False)
+
         # so we can hide what may be hidden
         if len(server.DISABLED_CONTROLS) != 0:
             for item_id in server.DISABLED_CONTROLS:
                 item = self.builder.get_object(item_id)
                 if item is not None:
                     item.set_visible(False)
+
+        for item_id in getattr(server, 'ENABLED_CONTROLS', []):
+            item = self.builder.get_object(item_id)
+            if item is not None:
+                item.set_visible(True)
 
 
     def OK(self, widget):
@@ -4022,6 +4034,7 @@ class GenericServer(object):
         # URLs should not end with / - clean it
         new_server.monitor_url = new_server.monitor_url.rstrip("/")
         new_server.monitor_cgi_url = new_server.monitor_cgi_url.rstrip("/")
+        new_server.websocket_url = new_server.websocket_url.rstrip("/")
 
         # check if there is already a server named like the new one
         if new_server.name in self.conf.servers:
@@ -4286,6 +4299,7 @@ class EditServer(GenericServer):
         # URLs should not end with / - clean it
         new_server.monitor_url = new_server.monitor_url.rstrip("/")
         new_server.monitor_cgi_url = new_server.monitor_cgi_url.rstrip("/")
+        new_server.websocket_url = new_server.websocket_url.rstrip("/")
 
         # check if there is already a server named like the new one
         if new_server.name in self.conf.servers and new_server.name != self.server:

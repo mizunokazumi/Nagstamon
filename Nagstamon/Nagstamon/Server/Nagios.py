@@ -49,9 +49,9 @@ class NagiosServer(GenericServer):
         self.Debug(server=self.get_name(), debug="Websocket: Connecting to %s..." % self.websocket_url)
 
         try:
-            self.ws = create_connection(self.websocket_url)
+            self.ws = create_connection(self.websocket_url, timeout=1)
             return True
-        except socket.error:
+        except (socket.error, WebSocketConnectionClosedException):
             self.ws = None
 
         return False
@@ -68,5 +68,7 @@ class NagiosServer(GenericServer):
         except WebSocketConnectionClosedException:
             self.Debug(server=self.get_name(), debug="Websocket: broken connection")
             self.websocket_init()
+        except socket.timeout:
+            pass
 
         return False
